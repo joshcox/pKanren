@@ -40,4 +40,4 @@
      [(fresh (a b res)
              (== `(,a . ,b) ls)
              (preverseo b res)
-             (pappendo res `(,a) o))])))
+             (appendo res `(,a) o))])))

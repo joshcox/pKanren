@@ -6,7 +6,7 @@
 
 (define profile
   (lambda (th)
-    (visualize-futures th)))
+    (visualize-futures-thunk th)))
 
 (define-syntax run/time
   (syntax-rules ()
@@ -24,15 +24,16 @@
        (void)))))
 
 
-(define als (build-list 100 (lambda (x) 'a)))
+(define als (build-list 100 (lambda (x) (gensym))))
 
 (define (run-tests)
   (run/stats*
-   (run 3 (q) (call/fresh (lambda (a) (conj (== q a) (pdisj (== a 'a) (== a 'b))))))
-   (run 3 (q) (call/fresh (lambda (a) (conj (== q a) (disj (== a 'a) (== a 'b))))))
+   ;; (run 3 (q) (call/fresh (lambda (a) (conj (== q a) (pdisj (== a 'a) (== a 'b))))))
+   ;; (run 3 (q) (call/fresh (lambda (a) (conj (== q a) (disj (== a 'a) (== a 'b))))))
 
-   (run 1 (q) (reverseo als q))
-   (run 1 (q) (preverseo als q))
+   ;;(run 1 (q) (reverseo als q))
+   ;;(run 1 (q) (preverseo als q))
+   (run 1 (q) (pdisj+ (reverseo als q) (reverseo als q) (reverseo als q)))
    )
 
   )
